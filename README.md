@@ -1,8 +1,11 @@
 # Cài thư viện backend
 
 npm install express mysql2 cors body-parser nodemon
+
 npm install --save-dev nodemon
+
 npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
 npm install web-vitals
 
 
