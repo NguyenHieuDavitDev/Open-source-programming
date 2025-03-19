@@ -58,7 +58,6 @@
       #product-form {
         display: none;
       }
-      /* Các style cho search suggestions */
       .position-relative {
         position: relative;
       }
@@ -81,22 +80,18 @@
     </style>
   </head>
   <body>
-    <!-- Sidebar -->
     <div id="sidebar">
       <h3><i class="fa-solid fa-boxes-stacked"></i> Admin</h3>
       <a href="/products"><i class="fa-solid fa-box"></i> Sản phẩm</a>
     </div>
 
-    <!-- Nội dung chính -->
     <div class="content">
       <h2 class="text-center">
         <i class="fa-solid fa-box-open"></i> Quản lý Sản phẩm
       </h2>
 
-      <!-- Form tìm kiếm & bộ lọc -->
       <form method="GET" class="row mb-3" id="search-form" autocomplete="off">
         <div class="col-md-5 position-relative">
-          <!-- Input group với icon kính lúp -->
           <div class="input-group">
             <input
               type="text"
@@ -110,7 +105,6 @@
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
-          <!-- Container gợi ý -->
           <div id="suggestions" class="list-group"></div>
         </div>
         <div class="col-md-3">
@@ -137,12 +131,10 @@
         </div>
       </form>
 
-      <!-- Nút thêm sản phẩm -->
       <button class="btn btn-primary mb-3" id="add-product-btn">
         <i class="fa-solid fa-plus"></i> Thêm sản phẩm
       </button>
 
-      <!-- Danh sách sản phẩm -->
       <div class="table-container">
         <table class="table table-bordered text-center">
           <thead class="table-dark">
@@ -195,7 +187,7 @@
         </table>
       </div>
 
-      <!-- Phân trang (giữ nguyên) -->
+      <!-- Phân trang-->
       <nav aria-label="Page navigation" class="mt-3">
         <ul class="pagination justify-content-center">
           <% 
@@ -264,12 +256,10 @@
     </div>
 
     <script>
-      // Submit form khi nhấn vào icon kính lúp
       document.getElementById("search-btn").addEventListener("click", function () {
         document.getElementById("search-form").submit();
       });
 
-      // Live suggestions cho ô tìm kiếm
       const searchInput = document.getElementById("search-input");
       const suggestionsBox = document.getElementById("suggestions");
 
@@ -280,14 +270,12 @@
           suggestionsBox.style.display = "none";
           return;
         }
-        // Gọi endpoint /products/suggestions?query=...
         fetch("/products/suggestions?query=" + encodeURIComponent(query))
           .then((res) => res.json())
           .then((data) => {
             if (data && data.length > 0) {
               let html = "";
               data.forEach((item) => {
-                // Giả sử mỗi item có { id, name, image }
                 html +=
                   '<a href="/products/' +
                   item.id +
@@ -314,21 +302,19 @@
           });
       });
 
-      // Ẩn suggestions khi click bên ngoài
       document.addEventListener("click", function (e) {
         if (!document.getElementById("search-input").contains(e.target)) {
           suggestionsBox.style.display = "none";
         }
       });
 
-      // Submit form khi nhấn Enter trong ô tìm kiếm
+      
       searchInput.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
           document.getElementById("search-form").submit();
         }
       });
 
-      // Các xử lý form thêm/sửa sản phẩm
       document.getElementById("add-product-btn").addEventListener("click", function () {
         const form = document.getElementById("product-form");
         form.style.display =
